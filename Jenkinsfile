@@ -39,15 +39,6 @@ pipeline {
             }
         }
 
-        stage('Déploiement dans Kubernetes') {
-            steps {
-                script {
-                    def manifestPath = "${pwd()}/manifest"
-                    sh "kubectl apply -f ${manifestPath}/deployment.yaml"
-                }
-            }
-        }
-
         stage('Cleanup Artifacts') {
             steps {
                 script {
