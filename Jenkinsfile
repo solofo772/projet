@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Clonage du dépôt') {
             steps {
-                sh "git clone https://github.com/solofo772/devops.git && cd devops/"
+                sh "rm -R projet && git clone https://github.com/solofo772/projet.git && cd projet/"
                 sh 'ls $pwd'
             }
         }
@@ -39,20 +39,22 @@ pipeline {
             }
         }
 
-//        stage('Déploiement dans Kubernetes') {
-//            steps {
-//                script {
-//                   def manifestPath = "${pwd()}/manifest"
-//                    sh "kubectl apply -f ${manifestPath}/deployment.yaml"
-//                }
-//            }
-//        }
+        stage('Déploiement dans Kubernetes') {
+            steps {
+                script {
+                    def manifestPath = "${pwd()}/manifest"
+                    sh "kubectl apply -f ${manifestPath}/deployment.yaml"
+                }
+            }
+        }
 
         stage('Cleanup Artifacts') {
             steps {
                 script {
                     sh "docker rmi ${DOCKER_IMAGE}"
-                    sh "docker run -d -t -p 80:80 --name web ${DOCKER_IMAGE}"
+                    sh "docker stop web"
+                    sh "docker rm web"
+                    sh "docker run -d -t -p 8082:80 --name web ${DOCKER_IMAGE}"
 
                 }
             }
