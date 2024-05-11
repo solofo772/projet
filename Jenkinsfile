@@ -53,7 +53,7 @@ pipeline {
                 script {
                     sh "docker rmi ${DOCKER_IMAGE}"
                     sh "docker stop web"
-                    sh "docker rm CONTAINER web"
+                    sh "docker rm web"
                     sh "docker run -d -t -p 8082:80 --name web ${DOCKER_IMAGE}"
 
                 }
