@@ -52,7 +52,7 @@ pipeline {
             steps {
                 script {
                     sh "docker rmi ${DOCKER_IMAGE}"
-                    sh "docker run -d -t -p 80:80 --name web ${DOCKER_IMAGE}"
+                    sh "docker run -d -t -p 8081:80 --name web2 ${DOCKER_IMAGE}"
 
                 }
             }
