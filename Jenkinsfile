@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Clonage du dépôt') {
             steps {
-                sh "rm -R && git clone https://github.com/solofo772/projet.git && cd projet/"
+                sh "rm -R projet && git clone https://github.com/solofo772/projet.git && cd projet/"
                 sh 'ls $pwd'
             }
         }
